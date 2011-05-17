@@ -2,19 +2,6 @@
 %global git_commit 327b2b7
 %global packdname core-%{git_commit}
 
-# FHS 2.3 compliant tree structure - http://www.pathname.com/fhs/2.3/
-%global basedir %{_var}/lib/%{name}
-%global appdir %{basedir}/webapps
-%global bindir %{_datadir}/%{name}/bin
-%global confdir %{_sysconfdir}/%{name}
-%global homedir %{_datadir}/%{name}
-%global libdir %{_javadir}/%{name}
-%global logdir %{_var}/log/%{name}
-%global cachedir %{_var}/cache/%{name}
-%global tempdir %{cachedir}/temp
-%global workdir %{cachedir}/work
-%global _initrddir %{_sysconfdir}/init.d
-
 Name:          android-tools
 Epoch:         0
 Version:       %{date}.%{git_commit}
@@ -28,6 +15,7 @@ Source0:       http://android.git.kernel.org/?p=platform/system/core.git;a=snaps
 Source1:       core-Makefile
 Source2:       adb-Makefile
 Source3:       fastboot-Makefile
+Source4:       51-android.rules
 
 BuildRequires: zlib-devel
 
@@ -56,6 +44,8 @@ make %{?_smp_mflags}
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
+%{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d
+%{__install} -D -m 0644 %{SOURCE4} ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d/51-android.rules
 make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 %files
@@ -63,10 +53,11 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 %doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/protocol.txt
 %{_bindir}/adb
 %{_bindir}/fastboot
+%{_sysconfdir}/udev/rules.d/51-android.rules
 
 
 %changelog
-* Wed May 18 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110516.327b2b7-1
+* Wed May 18 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 0:20110516.327b2b7-1
 - Initial spec
 - Initial makefiles
-
+- Initial udev rule
