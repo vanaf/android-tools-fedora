@@ -1,0 +1,40 @@
+SRCS+= protocol.c
+SRCS+= engine.c
+SRCS+= bootimg.c
+SRCS+= fastboot.c
+SRCS+= usb_linux.c
+SRCS+= util_linux.c
+
+VPATH+= ../libzipfile
+SRCS+= centraldir.c
+SRCS+= zipfile.c
+
+CPPFLAGS+= -DADB_HOST=1
+CPPFLAGS+= -DHAVE_FORKEXEC=1
+CPPFLAGS+= -DHAVE_SYMLINKS
+CPPFLAGS+= -DHAVE_TERMIO_H
+CPPFLAGS+= -D_GNU_SOURCE
+CPPFLAGS+= -D_XOPEN_SOURCE
+CPPFLAGS+= -I.
+CPPFLAGS+= -I../include
+CPPFLAGS+= -I../mkbootimg
+
+
+CFLAGS+= -O2 -Wall -Wno-unused-parameter
+LIBS= -lrt -lpthread -lz
+
+CC= $(TOOLCHAIN)gcc
+LD= $(TOOLCHAIN)gcc
+
+OBJS= $(SRCS:.c=.o)
+
+all: fastboot
+
+fastboot: $(OBJS)
+	$(LD) -o $@ $(LDFLAGS) $(OBJS) $(LIBS)
+
+install: fastboot
+	install fastboot $(DESTDIR)$(BINDIR)
+
+clean:
+	rm -rf $(OBJS)
