@@ -1,5 +1,5 @@
-%global date 20110516
-%global git_commit 327b2b7
+%global date 20110726
+%global git_commit 212282c
 %global packdname core-%{git_commit}
 
 Name:          android-tools
@@ -11,7 +11,7 @@ Summary:       Android platform tools (adb, fastboot, etc)
 Group:         Applications/System
 License:       ASL 2.0
 URL:           http://www.android.com/
-Source0:       http://android.git.kernel.org/?p=platform/system/core.git;a=snapshot;h=327b2b7;sf=tgz;/%{packdname}.tar.gz
+Source0:       http://android.git.kernel.org/?p=platform/system/core.git;a=snapshot;h=%{git_commit};sf=tgz;/%{packdname}.tar.gz
 Source1:       core-Makefile
 Source2:       adb-Makefile
 Source3:       fastboot-Makefile
@@ -57,6 +57,9 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Tue Jul 26 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 0:20110726.212282c-1
+- Update to upstream git commit 212282c
+
 * Wed May 18 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 0:20110516.327b2b7-1
 - Initial spec
 - Initial makefiles

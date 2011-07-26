@@ -1,4 +1,5 @@
 # http://developer.android.com/guide/developing/device.html
+# adb/usb_vendors.c
 
 # Acer
 SUBSYSTEM=="usb", SYSFS{idVendor}=="0502", MODE="0666"
@@ -9,7 +10,7 @@ SUBSYSTEM=="usb", SYSFS{idVendor}=="413c", MODE="0666"
 # Foxconn
 SUBSYSTEM=="usb", SYSFS{idVendor}=="0489", MODE="0666"
 
-# Asus
+# Garmin-Asus
 SUBSYSTEM=="usb", SYSFS{idVendor}=="091E", MODE="0666"
 
 # Google
@@ -47,4 +48,52 @@ SUBSYSTEM=="usb", SYSFS{idVendor}=="0fce", MODE="0666"
 
 # ZTE
 SUBSYSTEM=="usb", SYSFS{idVendor}=="19d2", MODE="0666"
+
+# Qualcomm
+SUBSYSTEM=="usb", SYSFS{idVendor}=="05c6", MODE="0666"
+
+# On-The-Go-Video
+SUBSYSTEM=="usb", SYSFS{idVendor}=="2257", MODE="0666"
+
+# NEC
+SUBSYSTEM=="usb", SYSFS{idVendor}=="0409", MODE="0666"
+
+# Panasonic
+SUBSYSTEM=="usb", SYSFS{idVendor}=="04da", MODE="0666"
+
+# Toshiba
+SUBSYSTEM=="usb", SYSFS{idVendor}=="0930", MODE="0666"
+
+# SK Telesys
+SUBSYSTEM=="usb", SYSFS{idVendor}=="1f53", MODE="0666"
+
+# KT Tech
+SUBSYSTEM=="usb", SYSFS{idVendor}=="2116", MODE="0666"
+
+# ASUS
+SUBSYSTEM=="usb", SYSFS{idVendor}=="0b05", MODE="0666"
+
+# Philips
+SUBSYSTEM=="usb", SYSFS{idVendor}=="0471", MODE="0666"
+
+# Texas Instruments
+SUBSYSTEM=="usb", SYSFS{idVendor}=="0451", MODE="0666"
+
+# Funai
+SUBSYSTEM=="usb", SYSFS{idVendor}=="0f1c", MODE="0666"
+
+# Gigabyte
+SUBSYSTEM=="usb", SYSFS{idVendor}=="0414", MODE="0666"
+
+# IRiver
+SUBSYSTEM=="usb", SYSFS{idVendor}=="2420", MODE="0666"
+
+# Compal
+SUBSYSTEM=="usb", SYSFS{idVendor}=="1219", MODE="0666"
+
+# T & A Mobile Phones
+SUBSYSTEM=="usb", SYSFS{idVendor}=="1bbb", MODE="0666"
+
+# Lenovo
+SUBSYSTEM=="usb", SYSFS{idVendor}=="2006", MODE="0666"
 
