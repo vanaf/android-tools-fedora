@@ -36,7 +36,7 @@ CPPFLAGS+= -D_XOPEN_SOURCE
 CPPFLAGS+= -I.
 CPPFLAGS+= -I../include
 
-CFLAGS+= -O2 -Wall -Wno-unused-parameter
+CFLAGS+= $(RPM_OPT_FLAGS)
 LIBS= -lrt -lpthread -lz
 
 CC= $(TOOLCHAIN)gcc

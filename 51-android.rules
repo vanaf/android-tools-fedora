@@ -97,3 +97,5 @@ SUBSYSTEM=="usb", SYSFS{idVendor}=="1bbb", MODE="0666"
 # Lenovo
 SUBSYSTEM=="usb", SYSFS{idVendor}=="2006", MODE="0666"
 
+# Vizio
+SUBSYSTEM=="usb", SYSFS{idVendor}=="e040", MODE="0666"

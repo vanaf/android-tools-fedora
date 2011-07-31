@@ -20,7 +20,7 @@ CPPFLAGS+= -I../include
 CPPFLAGS+= -I../mkbootimg
 
 
-CFLAGS+= -O2 -Wall -Wno-unused-parameter
+CFLAGS+= $(RPM_OPT_FLAGS)
 LIBS= -lrt -lpthread -lz
 
 CC= $(TOOLCHAIN)gcc

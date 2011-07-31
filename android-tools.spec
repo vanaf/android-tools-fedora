@@ -1,5 +1,5 @@
-%global date 20110726
-%global git_commit 212282c
+%global date 20110731
+%global git_commit 810cf41
 %global packdname core-%{git_commit}
 
 Name:          android-tools
@@ -9,7 +9,7 @@ Release:       1%{?dist}
 Summary:       Android platform tools (adb, fastboot, etc)
 
 Group:         Applications/System
-License:       ASL 2.0
+License:       ASL 2.0 and BSD
 URL:           http://www.android.com/
 Source0:       http://android.git.kernel.org/?p=platform/system/core.git;a=snapshot;h=%{git_commit};sf=tgz;/%{packdname}.tar.gz
 Source1:       core-Makefile
@@ -57,6 +57,12 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Sun Jul 31 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 0:20110731.810cf41-1
+- Update to upstream git commit 810cf41
+- Fix License
+- Use optflags
+- Added more udev devices
+
 * Tue Jul 26 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 0:20110726.212282c-1
 - Update to upstream git commit 212282c
 
