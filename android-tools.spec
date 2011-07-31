@@ -56,7 +56,7 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
-* Sun Jul 31 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 0:20110731.810cf41-1
+* Sun Jul 31 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110731.810cf41-1
 - Update to upstream git commit 810cf41
 - Fix License
 - Use optflags
