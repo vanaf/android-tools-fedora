@@ -3,7 +3,6 @@
 %global packdname core-%{git_commit}
 
 Name:          android-tools
-Epoch:         0
 Version:       %{date}.%{git_commit}
 Release:       1%{?dist}
 Summary:       Android platform tools (adb, fastboot, etc)
@@ -62,6 +61,7 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 - Fix License
 - Use optflags
 - Added more udev devices
+- Remove Epoch
 
 * Tue Jul 26 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 0:20110726.212282c-1
 - Update to upstream git commit 212282c
