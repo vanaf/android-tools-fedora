@@ -1,5 +1,5 @@
-%global date 20110731
-%global git_commit 810cf41
+%global date 20110816
+%global git_commit 80d508f
 %global packdname core-%{git_commit}
 
 Name:          android-tools
@@ -56,6 +56,10 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Tue Aug 16 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110816.80d508f-1
+- Update to upstream git commit 80d508f
+- Added more udev devices
+
 * Sun Jul 31 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110731.810cf41-1
 - Update to upstream git commit 810cf41
 - Fix License

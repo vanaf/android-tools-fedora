@@ -94,8 +94,11 @@ SUBSYSTEM=="usb", SYSFS{idVendor}=="1219", MODE="0666"
 # T & A Mobile Phones
 SUBSYSTEM=="usb", SYSFS{idVendor}=="1bbb", MODE="0666"
 
-# Lenovo
+# LenovoMobile
 SUBSYSTEM=="usb", SYSFS{idVendor}=="2006", MODE="0666"
+
+# Lenovo
+SUBSYSTEM=="usb", SYSFS{idVendor}=="17ef", MODE="0666"
 
 # Vizio
 SUBSYSTEM=="usb", SYSFS{idVendor}=="e040", MODE="0666"
