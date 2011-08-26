@@ -4,8 +4,8 @@
 
 Name:          android-tools
 Version:       %{date}.%{git_commit}
-Release:       1%{?dist}
-Summary:       Android platform tools (adb, fastboot, etc)
+Release:       2%{?dist}
+Summary:       Android platform tools (adb, fastboot, etc.)
 
 Group:         Applications/System
 License:       ASL 2.0 and BSD
@@ -25,9 +25,18 @@ The Android Debug Bridge (ADB) is used to:
 - keep track of all Android devices and emulators instances
   connected to or running on a given host developer machine
 
-- implement various control commands (e.g. "adb shell", "adb pull", etc..)
+- implement various control commands (e.g. "adb shell", "adb pull", etc.)
   for the benefit of clients (command-line users, or helper programs like
   DDMS). These commands are what is called a 'service' in ADB.
+
+Fastboot is used to manipulate the flash partitions of the Android phone. 
+It can also boot the phone using a kernel image or root filesystem image 
+which reside on the host machine rather than in the phone flash. 
+In order to use it, it is important to understand the flash partition 
+layout for the phone.
+The fastboot program works in conjunction with firmware on the phone 
+to read and write the flash partitions. It needs the same USB device 
+setup between the host and the target phone as adb.
 
 %prep
 %setup -q -n %{packdname}
@@ -41,14 +50,12 @@ cp -p %{SOURCE3} fastboot/Makefile
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
-%{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d
-%{__install} -D -m 0644 %{SOURCE4} ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d/51-android.rules
+install -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
+install -d -m 0755 ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d
+install -D -m 0644 %{SOURCE4} ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d/51-android.rules
 make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 %files
-%defattr(-,root,root,-)
 %doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/protocol.txt
 %{_bindir}/adb
 %{_bindir}/fastboot
@@ -56,6 +63,12 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Sat Aug 27 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110816.80d508f-2
+- Remove the rm in the install section
+- Remove defattr
+- Use install command(not macro)
+- Add description of fastboot
+
 * Tue Aug 16 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110816.80d508f-1
 - Update to upstream git commit 80d508f
 - Added more udev devices
