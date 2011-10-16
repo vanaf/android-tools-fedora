@@ -4,7 +4,7 @@
 
 Name:          android-tools
 Version:       %{date}.%{git_commit}
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Android platform tools (adb, fastboot, etc.)
 
 Group:         Applications/System
@@ -63,6 +63,9 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Mon Oct 17 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110816.80d508f-3
+- Update udev rules (s/SYSFS/ATTR/g) 
+
 * Sat Aug 27 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110816.80d508f-2
 - Remove the rm in the install section
 - Remove defattr
