@@ -1,16 +1,21 @@
-%global date 20110816
-%global git_commit 80d508f
+%global date 20111115
+%global git_commit 4a25390
 %global packdname core-%{git_commit}
 
 Name:          android-tools
 Version:       %{date}.%{git_commit}
-Release:       3%{?dist}
+Release:       1%{?dist}
 Summary:       Android platform tools (adb, fastboot, etc.)
 
 Group:         Applications/System
 License:       ASL 2.0 and BSD
 URL:           http://www.android.com/
-Source0:       http://android.git.kernel.org/?p=platform/system/core.git;a=snapshot;h=%{git_commit};sf=tgz;/%{packdname}.tar.gz
+
+#  using git archive since upstream hasn't created tarballs. 
+#  git archive --format=tar --prefix=%{packdname}/ %{git_commit}  | xz  > %{packdname}.tar.xz
+#  https://android.googlesource.com/platform/system/core.git
+
+Source0:       %{packdname}.tar.xz
 Source1:       core-Makefile
 Source2:       adb-Makefile
 Source3:       fastboot-Makefile
@@ -63,6 +68,11 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Tue Nov 15 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111115.4a25390-1
+- Change upstream git repo URL
+- Update to upstream git commit 4a25390
+- Added more udev devices
+
 * Mon Oct 17 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20110816.80d508f-3
 - Update udev rules (s/SYSFS/ATTR/g) 
 
