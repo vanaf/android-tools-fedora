@@ -1,18 +1,18 @@
-%global date 20111115
+%global date 20111120
 %global git_commit 4a25390
 %global packdname core-%{git_commit}
 
 Name:          android-tools
-Version:       %{date}.%{git_commit}
+Version:       %{date}git%{git_commit}
 Release:       1%{?dist}
-Summary:       Android platform tools (adb, fastboot, etc.)
+Summary:       Android platform tools
 
 Group:         Applications/System
 License:       ASL 2.0 and BSD
 URL:           http://www.android.com/
 
 #  using git archive since upstream hasn't created tarballs. 
-#  git archive --format=tar --prefix=%{packdname}/ %{git_commit}  | xz  > %{packdname}.tar.xz
+#  git archive --format=tar --prefix=%%{packdname}/ %%{git_commit} adb fastboot libzipfile libcutils  mkbootimg include/cutils include/zipfile | xz  > %%{packdname}.tar.xz
 #  https://android.googlesource.com/platform/system/core.git
 
 Source0:       %{packdname}.tar.xz
@@ -22,6 +22,9 @@ Source3:       fastboot-Makefile
 Source4:       51-android.rules
 
 BuildRequires: zlib-devel
+
+Provides:      adb
+Provides:      fastboot
 
 %description
 
@@ -56,18 +59,27 @@ make %{?_smp_mflags}
 
 %install
 install -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
-install -d -m 0755 ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d
-install -D -m 0644 %{SOURCE4} ${RPM_BUILD_ROOT}%{_sysconfdir}/udev/rules.d/51-android.rules
+install -d -m 0755 ${RPM_BUILD_ROOT}/lib/udev/rules.d
+install -D -m 0644 %{SOURCE4} ${RPM_BUILD_ROOT}/lib/udev/rules.d/51-android.rules
 make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 %files
-%doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/protocol.txt
+%doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/NOTICE adb/protocol.txt
+#ASL2.0
 %{_bindir}/adb
+#BSD
 %{_bindir}/fastboot
-%{_sysconfdir}/udev/rules.d/51-android.rules
+/lib/udev/rules.d/51-android.rules
 
 
 %changelog
+* Sun Nov 20 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111120git4a25390-1
+- Versioning changes
+- Use only needed sources
+- Udev rules moved to lib
+- More license info added
+- adb and fastboot moved to provides from summary
+
 * Tue Nov 15 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111115.4a25390-1
 - Change upstream git repo URL
 - Update to upstream git commit 4a25390
