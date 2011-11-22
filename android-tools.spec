@@ -4,7 +4,7 @@
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Android platform tools
 
 Group:         Applications/System
@@ -21,6 +21,7 @@ Source2:       adb-Makefile
 Source3:       fastboot-Makefile
 Source4:       51-android.rules
 
+Requires:      udev
 BuildRequires: zlib-devel
 
 Provides:      adb
@@ -67,12 +68,15 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 %doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/NOTICE adb/protocol.txt
 #ASL2.0
 %{_bindir}/adb
-#BSD
+#ASL2.0 and BSD.
 %{_bindir}/fastboot
 /lib/udev/rules.d/51-android.rules
 
 
 %changelog
+* Tue Nov 22 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111120git4a25390-2
+- Require udev
+
 * Sun Nov 20 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111120git4a25390-1
 - Versioning changes
 - Use only needed sources
