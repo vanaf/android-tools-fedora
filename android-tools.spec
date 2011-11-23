@@ -4,12 +4,13 @@
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Android platform tools
 
 Group:         Applications/System
-License:       ASL 2.0 and BSD
-URL:           http://www.android.com/
+# The entire source code is ASL 2.0 except fastboot/ which is BSD
+License:       ASL 2.0 and (ASL 2.0 and BSD)
+URL:           http://developer.android.com/guide/developing/tools/
 
 #  using git archive since upstream hasn't created tarballs. 
 #  git archive --format=tar --prefix=%%{packdname}/ %%{git_commit} adb fastboot libzipfile libcutils  mkbootimg include/cutils include/zipfile | xz  > %%{packdname}.tar.xz
@@ -74,6 +75,10 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Wed Nov 23 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111120git4a25390-3
+- Fix license
+- More specific URL
+
 * Tue Nov 22 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111120git4a25390-2
 - Require udev
 
