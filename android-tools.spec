@@ -1,10 +1,10 @@
-%global date 20111120
-%global git_commit 4a25390
+%global date 20111220
+%global git_commit 1b251bd
 %global packdname core-%{git_commit}
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       3%{?dist}
+Release:       1%{?dist}
 Summary:       Android platform tools
 
 Group:         Applications/System
@@ -75,6 +75,9 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Tue Dec 20 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111220git1b251bd-1
+- Update to upstream git commit 1b251bd
+
 * Wed Nov 23 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111120git4a25390-3
 - Fix license
 - More specific URL
