@@ -4,7 +4,7 @@
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Android platform tools
 
 Group:         Applications/System
@@ -75,6 +75,9 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20111220git1b251bd-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Tue Dec 20 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111220git1b251bd-1
 - Update to upstream git commit 1b251bd
 
