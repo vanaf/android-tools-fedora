@@ -1,11 +1,11 @@
-%global date 20111220
-%global git_commit 1b251bd
+%global date 20120510
+%global git_commit d98c87c
 %global packdname core-%{git_commit}
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
 Release:       1%{?dist}
-Summary:       Android platform tools
+Summary:       Android platform tools(adb, fastboot)
 
 Group:         Applications/System
 # The entire source code is ASL 2.0 except fastboot/ which is BSD
@@ -75,6 +75,11 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Thu May 10 2012 Ivan Afonichev <ivan.afonichev@gmail.com> - 20120510gitd98c87c-1
+- Update to upstream git commit d98c87c
+- Added more udev devices
+- Resolves: rhbz 819292 secure udev permissions
+
 * Tue Dec 20 2011 Ivan Afonichev <ivan.afonichev@gmail.com> - 20111220git1b251bd-1
 - Update to upstream git commit 1b251bd
 
