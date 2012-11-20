@@ -2,131 +2,140 @@
 # adb/usb_vendors.c
 
 # Acer
-SUBSYSTEM=="usb", ATTR{idVendor}=="0502", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0502", RUN+="/usr/bin/adb start-server"
 
 # Dell
-SUBSYSTEM=="usb", ATTR{idVendor}=="413c", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="413c", RUN+="/usr/bin/adb start-server"
 
 # Foxconn
-SUBSYSTEM=="usb", ATTR{idVendor}=="0489", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0489", RUN+="/usr/bin/adb start-server"
 
 # Garmin-Asus
-SUBSYSTEM=="usb", ATTR{idVendor}=="091E", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="091E", RUN+="/usr/bin/adb start-server"
 
 # Google
-SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", RUN+="/usr/bin/adb start-server"
 
 # HTC
-SUBSYSTEM=="usb", ATTR{idVendor}=="0bb4", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0bb4", RUN+="/usr/bin/adb start-server"
 
 # Huawei
-SUBSYSTEM=="usb", ATTR{idVendor}=="12d1", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="12d1", RUN+="/usr/bin/adb start-server"
 
 # Kyocera
-SUBSYSTEM=="usb", ATTR{idVendor}=="0482", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0482", RUN+="/usr/bin/adb start-server"
 
 # LG
-SUBSYSTEM=="usb", ATTR{idVendor}=="1004", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1004", RUN+="/usr/bin/adb start-server"
 
 # Motorola
-SUBSYSTEM=="usb", ATTR{idVendor}=="22b8", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="22b8", RUN+="/usr/bin/adb start-server"
 
 # Nvidia
-SUBSYSTEM=="usb", ATTR{idVendor}=="0955", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0955", RUN+="/usr/bin/adb start-server"
 
 # Pantech
-SUBSYSTEM=="usb", ATTR{idVendor}=="10A9", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="10A9", RUN+="/usr/bin/adb start-server"
 
 # Samsung
-SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", RUN+="/usr/bin/adb start-server"
 
 # Sharp
-SUBSYSTEM=="usb", ATTR{idVendor}=="04dd", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="04dd", RUN+="/usr/bin/adb start-server"
 
 # Sony Ericsson
-SUBSYSTEM=="usb", ATTR{idVendor}=="0fce", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0fce", RUN+="/usr/bin/adb start-server"
 
 # ZTE
-SUBSYSTEM=="usb", ATTR{idVendor}=="19d2", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="19d2", RUN+="/usr/bin/adb start-server"
 
 # Qualcomm
-SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", RUN+="/usr/bin/adb start-server"
 
 # On-The-Go-Video
-SUBSYSTEM=="usb", ATTR{idVendor}=="2257", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="2257", RUN+="/usr/bin/adb start-server"
 
 # NEC
-SUBSYSTEM=="usb", ATTR{idVendor}=="0409", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0409", RUN+="/usr/bin/adb start-server"
 
 # Panasonic
-SUBSYSTEM=="usb", ATTR{idVendor}=="04da", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="04da", RUN+="/usr/bin/adb start-server"
 
 # Toshiba
-SUBSYSTEM=="usb", ATTR{idVendor}=="0930", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0930", RUN+="/usr/bin/adb start-server"
 
 # SK Telesys
-SUBSYSTEM=="usb", ATTR{idVendor}=="1f53", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1f53", RUN+="/usr/bin/adb start-server"
 
 # KT Tech
-SUBSYSTEM=="usb", ATTR{idVendor}=="2116", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="2116", RUN+="/usr/bin/adb start-server"
 
 # ASUS
-SUBSYSTEM=="usb", ATTR{idVendor}=="0b05", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0b05", RUN+="/usr/bin/adb start-server"
 
 # Philips
-SUBSYSTEM=="usb", ATTR{idVendor}=="0471", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0471", RUN+="/usr/bin/adb start-server"
 
 # Texas Instruments
-SUBSYSTEM=="usb", ATTR{idVendor}=="0451", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0451", RUN+="/usr/bin/adb start-server"
 
 # Funai
-SUBSYSTEM=="usb", ATTR{idVendor}=="0f1c", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0f1c", RUN+="/usr/bin/adb start-server"
 
 # Gigabyte
-SUBSYSTEM=="usb", ATTR{idVendor}=="0414", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0414", RUN+="/usr/bin/adb start-server"
 
 # IRiver
-SUBSYSTEM=="usb", ATTR{idVendor}=="2420", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="2420", RUN+="/usr/bin/adb start-server"
 
 # Compal
-SUBSYSTEM=="usb", ATTR{idVendor}=="1219", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1219", RUN+="/usr/bin/adb start-server"
 
 # T & A Mobile Phones
-SUBSYSTEM=="usb", ATTR{idVendor}=="1bbb", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1bbb", RUN+="/usr/bin/adb start-server"
 
 # LenovoMobile
-SUBSYSTEM=="usb", ATTR{idVendor}=="2006", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="2006", RUN+="/usr/bin/adb start-server"
 
 # Lenovo
-SUBSYSTEM=="usb", ATTR{idVendor}=="17ef", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="17ef", RUN+="/usr/bin/adb start-server"
 
 # Vizio
-SUBSYSTEM=="usb", ATTR{idVendor}=="e040", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="e040", RUN+="/usr/bin/adb start-server"
 
 # K-Touch
-SUBSYSTEM=="usb", ATTR{idVendor}=="24e3", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="24e3", RUN+="/usr/bin/adb start-server"
 
 # Pegatron
-SUBSYSTEM=="usb", ATTR{idVendor}=="1d4d", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1d4d", RUN+="/usr/bin/adb start-server"
 
 # Archos
-SUBSYSTEM=="usb", ATTR{idVendor}=="0e79", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0e79", RUN+="/usr/bin/adb start-server"
 
 # Positivo
-SUBSYSTEM=="usb", ATTR{idVendor}=="1662", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1662", RUN+="/usr/bin/adb start-server"
 
 # Intel
-SUBSYSTEM=="usb", ATTR{idVendor}=="8087", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="8087", RUN+="/usr/bin/adb start-server"
 
 # Quanta
-SUBSYSTEM=="usb", ATTR{idVendor}=="0408", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0408", RUN+="/usr/bin/adb start-server"
 
 # INQ Mobile
-SUBSYSTEM=="usb", ATTR{idVendor}=="2314", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="2314", RUN+="/usr/bin/adb start-server"
 
 # Sony
-SUBSYSTEM=="usb", ATTR{idVendor}=="054c", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="054c", RUN+="/usr/bin/adb start-server"
 
 # Lab126
-SUBSYSTEM=="usb", ATTR{idVendor}=="1949", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="1949", RUN+="/usr/bin/adb start-server"
+
+# Yulong Coolpad
+SUBSYSTEM=="usb", ATTR{idVendor}=="1ebf", RUN+="/usr/bin/adb start-server"
+
+# Kobo
+SUBSYSTEM=="usb", ATTR{idVendor}=="2237", RUN+="/usr/bin/adb start-server"
+
+# Teleepoch
+SUBSYSTEM=="usb", ATTR{idVendor}=="2340", RUN+="/usr/bin/adb start-server"
 
