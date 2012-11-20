@@ -1,6 +1,10 @@
-%global date 20120510
-%global git_commit d98c87c
+%global date 20121120
+%global git_commit 3ddc005
 %global packdname core-%{git_commit}
+#last extras ext4_utils  commit without custom libselinux requirement
+%global extras_git_commit 4ff85ad
+%global extras_packdname extras-%{extras_git_commit}
+
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
@@ -13,17 +17,22 @@ License:       ASL 2.0 and (ASL 2.0 and BSD)
 URL:           http://developer.android.com/guide/developing/tools/
 
 #  using git archive since upstream hasn't created tarballs. 
-#  git archive --format=tar --prefix=%%{packdname}/ %%{git_commit} adb fastboot libzipfile libcutils  mkbootimg include/cutils include/zipfile | xz  > %%{packdname}.tar.xz
+#  git archive --format=tar --prefix=%%{packdname}/ %%{git_commit} adb fastboot libzipfile libcutils libmincrypt mkbootimg include/cutils include/zipfile include/mincrypt | xz  > %%{packdname}.tar.xz
 #  https://android.googlesource.com/platform/system/core.git
+#  git archive --format=tar --prefix=extras/ %%{extras_git_commit} ext4_utils | xz  > %%{extras_packdname}.tar.xz
+#  https://android.googlesource.com/platform/system/extras.git
 
 Source0:       %{packdname}.tar.xz
-Source1:       core-Makefile
-Source2:       adb-Makefile
-Source3:       fastboot-Makefile
-Source4:       51-android.rules
+Source1:       %{extras_packdname}.tar.xz
+Source2:       core-Makefile
+Source3:       adb-Makefile
+Source4:       fastboot-Makefile
+Source5:       51-android.rules
 
 Requires:      udev
 BuildRequires: zlib-devel
+BuildRequires: openssl-devel
+BuildRequires: libselinux-devel
 
 Provides:      adb
 Provides:      fastboot
@@ -49,12 +58,11 @@ to read and write the flash partitions. It needs the same USB device
 setup between the host and the target phone as adb.
 
 %prep
-%setup -q -n %{packdname}
-cp -p %{SOURCE1} Makefile
-cp -p %{SOURCE2} adb/Makefile
-cp -p %{SOURCE3} fastboot/Makefile
-
-
+%setup -q -b 1 -n extras
+%setup -q -b 0 -n %{packdname}
+cp -p %{SOURCE2} Makefile
+cp -p %{SOURCE3} adb/Makefile
+cp -p %{SOURCE4} fastboot/Makefile
 
 %build
 make %{?_smp_mflags}
@@ -62,7 +70,7 @@ make %{?_smp_mflags}
 %install
 install -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
 install -d -m 0755 ${RPM_BUILD_ROOT}/lib/udev/rules.d
-install -D -m 0644 %{SOURCE4} ${RPM_BUILD_ROOT}/lib/udev/rules.d/51-android.rules
+install -D -m 0644 %{SOURCE5} ${RPM_BUILD_ROOT}/lib/udev/rules.d/51-android.rules
 make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 %files
@@ -75,6 +83,13 @@ make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 
 
 %changelog
+* Tue Nov 20 2012 Ivan Afonichev <ivan.afonichev@gmail.com> - 20121120git3ddc005-1
+- Update to upstream git commit 3ddc005
+- Added more udev devices
+- Added ext4_utils from extras for fastboot
+- Updated makefiles
+- Resolves: rhbz 869624 start adb server by udev
+
 * Thu May 10 2012 Ivan Afonichev <ivan.afonichev@gmail.com> - 20120510gitd98c87c-1
 - Update to upstream git commit d98c87c
 - Added more udev devices

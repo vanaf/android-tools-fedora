@@ -1,5 +1,6 @@
 SRCS+= adb.c
 SRCS+= adb_client.c
+SRCS+= adb_auth_host.c
 SRCS+= commandline.c
 SRCS+= console.c
 SRCS+= file_sync_client.c
@@ -22,10 +23,18 @@ SRCS+= socket_local_server.c
 SRCS+= socket_loopback_client.c
 SRCS+= socket_loopback_server.c
 SRCS+= socket_network_client.c
+SRCS+= load_file.c
+SRCS+= list.c
 
 VPATH+= ../libzipfile
 SRCS+= centraldir.c
 SRCS+= zipfile.c
+
+VPATH+= ../libmincrypt
+SRCS+= rsa.c
+SRCS+= rsa_e_3.c
+SRCS+= rsa_e_f4.c
+SRCS+= sha.c
 
 CPPFLAGS+= -DADB_HOST=1
 CPPFLAGS+= -DHAVE_FORKEXEC=1
@@ -37,7 +46,7 @@ CPPFLAGS+= -I.
 CPPFLAGS+= -I../include
 
 CFLAGS+= $(RPM_OPT_FLAGS)
-LIBS= -lrt -lpthread -lz
+LIBS= -lrt -lpthread -lz -lcrypto
 
 CC= $(TOOLCHAIN)gcc
 LD= $(TOOLCHAIN)gcc

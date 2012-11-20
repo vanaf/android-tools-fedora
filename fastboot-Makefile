@@ -9,6 +9,25 @@ VPATH+= ../libzipfile
 SRCS+= centraldir.c
 SRCS+= zipfile.c
 
+VPATH+= ../libsparse
+SRCS+= backed_block.c
+SRCS+= output_file.c
+SRCS+= sparse.c
+SRCS+= sparse_crc32.c
+SRCS+= sparse_err.c
+SRCS+= sparse_read.c
+
+VPATH+= ../../extras/ext4_utils
+SRCS+= allocate.c
+SRCS+= contents.c
+SRCS+= ext4_utils.c
+SRCS+= extent.c
+SRCS+= indirect.c
+SRCS+= make_ext4fs.c
+SRCS+= sha1.c
+SRCS+= uuid.c
+SRCS+= wipe.c
+
 CPPFLAGS+= -DADB_HOST=1
 CPPFLAGS+= -DHAVE_FORKEXEC=1
 CPPFLAGS+= -DHAVE_SYMLINKS
@@ -17,11 +36,12 @@ CPPFLAGS+= -D_GNU_SOURCE
 CPPFLAGS+= -D_XOPEN_SOURCE
 CPPFLAGS+= -I.
 CPPFLAGS+= -I../include
+CPPFLAGS+= -I../libsparse/include
 CPPFLAGS+= -I../mkbootimg
-
+CPPFLAGS+= -I../../extras/ext4_utils
 
 CFLAGS+= $(RPM_OPT_FLAGS)
-LIBS= -lrt -lpthread -lz
+LIBS= -lrt -lpthread -lz -lselinux
 
 CC= $(TOOLCHAIN)gcc
 LD= $(TOOLCHAIN)gcc
