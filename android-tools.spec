@@ -1,5 +1,5 @@
-%global date 20121120
-%global git_commit 3ddc005
+%global date 20130123
+%global git_commit 98d0789
 %global packdname core-%{git_commit}
 #last extras ext4_utils  commit without custom libselinux requirement
 %global extras_git_commit 4ff85ad
@@ -17,7 +17,7 @@ License:       ASL 2.0 and (ASL 2.0 and BSD)
 URL:           http://developer.android.com/guide/developing/tools/
 
 #  using git archive since upstream hasn't created tarballs. 
-#  git archive --format=tar --prefix=%%{packdname}/ %%{git_commit} adb fastboot libzipfile libcutils libmincrypt mkbootimg include/cutils include/zipfile include/mincrypt | xz  > %%{packdname}.tar.xz
+#  git archive --format=tar --prefix=%%{packdname}/ %%{git_commit} adb fastboot libzipfile libcutils libmincrypt libsparse mkbootimg include/cutils include/zipfile include/mincrypt | xz  > %%{packdname}.tar.xz
 #  https://android.googlesource.com/platform/system/core.git
 #  git archive --format=tar --prefix=extras/ %%{extras_git_commit} ext4_utils | xz  > %%{extras_packdname}.tar.xz
 #  https://android.googlesource.com/platform/system/extras.git
@@ -28,11 +28,15 @@ Source2:       core-Makefile
 Source3:       adb-Makefile
 Source4:       fastboot-Makefile
 Source5:       51-android.rules
+Source6:       adb.service
 
-Requires:      udev
+Requires(post): systemd-units
+Requires(preun): systemd-units
+Requires(postun): systemd-units
 BuildRequires: zlib-devel
 BuildRequires: openssl-devel
 BuildRequires: libselinux-devel
+BuildRequires: systemd-units
 
 Provides:      adb
 Provides:      fastboot
@@ -63,26 +67,52 @@ setup between the host and the target phone as adb.
 cp -p %{SOURCE2} Makefile
 cp -p %{SOURCE3} adb/Makefile
 cp -p %{SOURCE4} fastboot/Makefile
+cp -p %{SOURCE5} 51-android.rules
 
 %build
 make %{?_smp_mflags}
 
 %install
 install -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
-install -d -m 0755 ${RPM_BUILD_ROOT}/lib/udev/rules.d
-install -D -m 0644 %{SOURCE5} ${RPM_BUILD_ROOT}/lib/udev/rules.d/51-android.rules
 make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
+install -p -D -m 0644 %{SOURCE6} \
+    %{buildroot}%{_unitdir}/adb.service
+
+%post
+if [ "$1" -eq "1" ] ; then 
+    # Initial installation 
+    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
+fi
+
+%preun
+if [ "$1" -eq "0" ] ; then
+    # Package removal, not upgrade
+    /bin/systemctl --no-reload disable adb.service > /dev/null 2>&1 || :
+    /bin/systemctl stop adb.service > /dev/null 2>&1 || :
+fi
+
+%postun
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+if [ "$1" -ge "1" ] ; then
+    # Package upgrade, not uninstall
+    /bin/systemctl try-restart adb.service >/dev/null 2>&1 || :
+fi
 
 %files
-%doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/NOTICE adb/protocol.txt
+%doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/NOTICE adb/protocol.txt 51-android.rules
+%{_unitdir}/adb.service
 #ASL2.0
 %{_bindir}/adb
 #ASL2.0 and BSD.
 %{_bindir}/fastboot
-/lib/udev/rules.d/51-android.rules
 
 
 %changelog
+* Mon Jan 28 2013 Ivan Afonichev <ivan.afonichev@gmail.com> - 20130123git98d0789-1
+- Update to upstream git commit 98d0789
+- Resolves: rhbz 903074 Move udev rule to docs as example
+- Resolves: rhbz 879585 Introduce adb.service with PrivateTmp
+
 * Tue Nov 20 2012 Ivan Afonichev <ivan.afonichev@gmail.com> - 20121120git3ddc005-1
 - Update to upstream git commit 3ddc005
 - Added more udev devices
