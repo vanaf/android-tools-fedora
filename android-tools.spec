@@ -30,13 +30,13 @@ Source4:       fastboot-Makefile
 Source5:       51-android.rules
 Source6:       adb.service
 
-Requires(post): systemd-units
-Requires(preun): systemd-units
-Requires(postun): systemd-units
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
 BuildRequires: zlib-devel
 BuildRequires: openssl-devel
 BuildRequires: libselinux-devel
-BuildRequires: systemd-units
+BuildRequires: systemd
 
 Provides:      adb
 Provides:      fastboot
@@ -79,24 +79,13 @@ install -p -D -m 0644 %{SOURCE6} \
     %{buildroot}%{_unitdir}/adb.service
 
 %post
-if [ "$1" -eq "1" ] ; then 
-    # Initial installation 
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post adb.service
 
 %preun
-if [ "$1" -eq "0" ] ; then
-    # Package removal, not upgrade
-    /bin/systemctl --no-reload disable adb.service > /dev/null 2>&1 || :
-    /bin/systemctl stop adb.service > /dev/null 2>&1 || :
-fi
+%systemd_preun adb.service
 
 %postun
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ "$1" -ge "1" ] ; then
-    # Package upgrade, not uninstall
-    /bin/systemctl try-restart adb.service >/dev/null 2>&1 || :
-fi
+%systemd_postun_with_restart adb.service
 
 %files
 %doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/NOTICE adb/protocol.txt 51-android.rules
