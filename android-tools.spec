@@ -1,5 +1,6 @@
 %global date 20130123
 %global git_commit 98d0789
+
 %global packdname core-%{git_commit}
 #last extras ext4_utils  commit without custom libselinux requirement
 %global extras_git_commit 4ff85ad
@@ -8,7 +9,7 @@
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Android platform tools(adb, fastboot)
 
 Group:         Applications/System
@@ -74,6 +75,7 @@ make %{?_smp_mflags}
 
 %install
 install -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
+install -d -m 0775 ${RPM_BUILD_ROOT}%{_sharedstatedir}/adb
 make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
 install -p -D -m 0644 %{SOURCE6} \
     %{buildroot}%{_unitdir}/adb.service
@@ -90,6 +92,7 @@ install -p -D -m 0644 %{SOURCE6} \
 %files
 %doc adb/OVERVIEW.TXT adb/SERVICES.TXT adb/NOTICE adb/protocol.txt 51-android.rules
 %{_unitdir}/adb.service
+%attr(0755,root,root) %dir %{_sharedstatedir}/adb
 #ASL2.0
 %{_bindir}/adb
 #ASL2.0 and BSD.
@@ -97,6 +100,10 @@ install -p -D -m 0644 %{SOURCE6} \
 
 
 %changelog
+* Fri Sep 19 2014 Ivan Afonichev <ivan.afonichev@gmail.com> - 20130123git98d0789-5
+- Added more udev devices
+- Resolves: rhbz 967216 Adb service now stores keys in /var/lib/adb
+
 * Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20130123git98d0789-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
