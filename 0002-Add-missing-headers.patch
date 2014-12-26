@@ -1,0 +1,25 @@
+From ee818ba3cb26b65eb93eb5f85eca18546e9a9c2e Mon Sep 17 00:00:00 2001
+From: Jonathan Dieter <jdieter@lesbg.com>
+Date: Fri, 26 Dec 2014 19:50:06 +0200
+Subject: [PATCH 2/2] Add missing headers
+
+Signed-off-by: Jonathan Dieter <jdieter@lesbg.com>
+---
+ f2fs_utils/f2fs_ioutils.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/f2fs_utils/f2fs_ioutils.c b/f2fs_utils/f2fs_ioutils.c
+index 2706d04..e4c6c83 100644
+--- a/f2fs_utils/f2fs_ioutils.c
++++ b/f2fs_utils/f2fs_ioutils.c
+@@ -39,6 +39,7 @@
+ #include <sys/types.h>
+ #include <fcntl.h>
+ #include <dlfcn.h>
++#include <unistd.h>
+ 
+ #include <assert.h>
+ 
+-- 
+2.1.0
+

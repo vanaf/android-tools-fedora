@@ -1,15 +1,15 @@
-%global date 20130123
-%global git_commit 98d0789
+%global date 20141219
+%global git_commit 8393e50
 
 %global packdname core-%{git_commit}
 #last extras ext4_utils  commit without custom libselinux requirement
-%global extras_git_commit 4ff85ad
+%global extras_git_commit 1e7d4f3
 %global extras_packdname extras-%{extras_git_commit}
 
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       5%{?dist}
+Release:       1%{?dist}
 Summary:       Android platform tools(adb, fastboot)
 
 Group:         Applications/System
@@ -18,9 +18,9 @@ License:       ASL 2.0 and (ASL 2.0 and BSD)
 URL:           http://developer.android.com/guide/developing/tools/
 
 #  using git archive since upstream hasn't created tarballs. 
-#  git archive --format=tar --prefix=%%{packdname}/ %%{git_commit} adb fastboot libzipfile libcutils libmincrypt libsparse mkbootimg include/cutils include/zipfile include/mincrypt | xz  > %%{packdname}.tar.xz
+#  git archive --format=tar --prefix=%%{packdname}/ %%{git_commit} adb fastboot libzipfile libcutils libmincrypt libsparse mkbootimg include/cutils include/zipfile include/mincrypt include/utils include/private | xz  > %%{packdname}.tar.xz
 #  https://android.googlesource.com/platform/system/core.git
-#  git archive --format=tar --prefix=extras/ %%{extras_git_commit} ext4_utils | xz  > %%{extras_packdname}.tar.xz
+#  git archive --format=tar --prefix=extras/ %%{extras_git_commit} ext4_utils f2fs_utils | xz  > %%{extras_packdname}.tar.xz
 #  https://android.googlesource.com/platform/system/extras.git
 
 Source0:       %{packdname}.tar.xz
@@ -30,7 +30,10 @@ Source3:       adb-Makefile
 Source4:       fastboot-Makefile
 Source5:       51-android.rules
 Source6:       adb.service
-
+# None of the code *we* compile uses anything from selinux/android.h, but 
+# other code may, so not upstreaming these patches
+Patch1:        0001-Remove-android-selinux-header.patch
+Patch2:        0002-Add-missing-headers.patch
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -64,6 +67,8 @@ setup between the host and the target phone as adb.
 
 %prep
 %setup -q -b 1 -n extras
+%patch1 -p1
+%patch2 -p1
 %setup -q -b 0 -n %{packdname}
 cp -p %{SOURCE2} Makefile
 cp -p %{SOURCE3} adb/Makefile
@@ -100,6 +105,9 @@ install -p -D -m 0644 %{SOURCE6} \
 
 
 %changelog
+* Wed Dec 24 2014 Jonathan Dieter <jdieter@lesbg.com> - 20141224git8393e50-1
+- Update to 5.0.2 release
+
 * Fri Sep 19 2014 Ivan Afonichev <ivan.afonichev@gmail.com> - 20130123git98d0789-5
 - Added more udev devices
 - Resolves: rhbz 967216 Adb service now stores keys in /var/lib/adb
