@@ -48,6 +48,7 @@ CPPFLAGS+= -I../include
 
 CFLAGS+= $(RPM_OPT_FLAGS)
 LIBS= -lrt -lpthread -lz -lcrypto
+LDFLAGS+= $(RPM_LD_FLAGS)
 
 CC= $(TOOLCHAIN)gcc
 LD= $(TOOLCHAIN)gcc

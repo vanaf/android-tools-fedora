@@ -53,6 +53,7 @@ CPPFLAGS+= -I../../extras/f2fs_utils
 
 CFLAGS+= $(RPM_OPT_FLAGS) -std=gnu99
 LIBS= -lrt -lpthread -lz -lselinux
+LDFLAGS+= $(RPM_LD_FLAGS)
 
 CC= $(TOOLCHAIN)gcc
 LD= $(TOOLCHAIN)gcc

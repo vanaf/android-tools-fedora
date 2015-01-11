@@ -2,14 +2,14 @@
 %global git_commit 8393e50
 
 %global packdname core-%{git_commit}
-#last extras ext4_utils  commit without custom libselinux requirement
 %global extras_git_commit 1e7d4f3
 %global extras_packdname extras-%{extras_git_commit}
 
+%global _hardened_build 1
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Android platform tools(adb, fastboot)
 
 Group:         Applications/System
@@ -33,13 +33,13 @@ Source6:       adb.service
 # None of the code *we* compile uses anything from selinux/android.h, but 
 # other code may, so not upstreaming these patches
 Patch1:        0001-Remove-android-selinux-header.patch
-Patch2:        0002-Add-missing-headers.patch
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 BuildRequires: zlib-devel
 BuildRequires: openssl-devel
 BuildRequires: libselinux-devel
+BuildRequires: f2fs-tools-devel
 BuildRequires: systemd
 
 Provides:      adb
@@ -68,7 +68,6 @@ setup between the host and the target phone as adb.
 %prep
 %setup -q -b 1 -n extras
 %patch1 -p1
-%patch2 -p1
 %setup -q -b 0 -n %{packdname}
 cp -p %{SOURCE2} Makefile
 cp -p %{SOURCE3} adb/Makefile
@@ -105,6 +104,10 @@ install -p -D -m 0644 %{SOURCE6} \
 
 
 %changelog
+* Sun Jan 11 2015 Ivan Afonichev <ivan.afonichev@gmail.com> - 20141224git8393e50-2
+- Resolves: rhbz 1062095 Harden android-tools
+- Remove 0002-Add-missing-headers.patch
+
 * Wed Dec 24 2014 Jonathan Dieter <jdieter@lesbg.com> - 20141224git8393e50-1
 - Update to 5.0.2 release
 
