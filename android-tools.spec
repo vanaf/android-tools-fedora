@@ -9,7 +9,7 @@
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Android platform tools(adb, fastboot)
 
 Group:         Applications/System
@@ -104,6 +104,10 @@ install -p -D -m 0644 %{SOURCE6} \
 
 
 %changelog
+* Wed May 20 2015 Bastien Nocera <bnocera@redhat.com> 20141224git8393e50-3
+- Remove Apple from the vendor to launch adb.service for
+  They never created an Android phone, and probably never will
+
 * Sun Jan 11 2015 Ivan Afonichev <ivan.afonichev@gmail.com> - 20141224git8393e50-2
 - Resolves: rhbz 1062095 Harden android-tools
 - Remove 0002-Add-missing-headers.patch
