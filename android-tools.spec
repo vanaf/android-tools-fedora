@@ -9,7 +9,7 @@
 
 Name:          android-tools
 Version:       %{date}git%{git_commit}
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Android platform tools(adb, fastboot)
 
 Group:         Applications/System
@@ -104,6 +104,9 @@ install -p -D -m 0644 %{SOURCE6} \
 
 
 %changelog
+* Tue Jun 16 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20141219git8393e50-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Wed May 20 2015 Bastien Nocera <bnocera@redhat.com> 20141224git8393e50-3
 - Remove Apple from the vendor to launch adb.service for
   They never created an Android phone, and probably never will
