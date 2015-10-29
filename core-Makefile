@@ -1,11 +1,14 @@
 all:
 	$(MAKE) -C adb all
 	$(MAKE) -C fastboot all
+	$(MAKE) -C libsparse all
 
 install:
 	$(MAKE) -C adb install
 	$(MAKE) -C fastboot install
+	$(MAKE) -C libsparse install
 
 clean:
 	$(MAKE) -C adb clean
 	$(MAKE) -C fastboot clean
+	$(MAKE) -C libsparse clean

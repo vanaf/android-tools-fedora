@@ -28,11 +28,13 @@ Source1:       %{extras_packdname}.tar.xz
 Source2:       core-Makefile
 Source3:       adb-Makefile
 Source4:       fastboot-Makefile
-Source5:       51-android.rules
-Source6:       adb.service
+Source5:       libsparse-Makefile
+Source6:       51-android.rules
+Source7:       adb.service
 # None of the code *we* compile uses anything from selinux/android.h, but 
 # other code may, so not upstreaming these patches
 Patch1:        0001-Remove-android-selinux-header.patch
+
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -65,6 +67,14 @@ The fastboot program works in conjunction with firmware on the phone
 to read and write the flash partitions. It needs the same USB device 
 setup between the host and the target phone as adb.
 
+%package fsutils
+Summary: Android ext4 utilities with sparse support
+
+%description fsutils
+Android images (.img) are typically ext4 filesystems in a special sparse
+file format. These are tools to help make that format.
+
+
 %prep
 %setup -q -b 1 -n extras
 %patch1 -p1
@@ -72,7 +82,8 @@ setup between the host and the target phone as adb.
 cp -p %{SOURCE2} Makefile
 cp -p %{SOURCE3} adb/Makefile
 cp -p %{SOURCE4} fastboot/Makefile
-cp -p %{SOURCE5} 51-android.rules
+cp -p %{SOURCE5} libsparse/Makefile
+cp -p %{SOURCE6} 51-android.rules
 
 %build
 make %{?_smp_mflags}
@@ -81,7 +92,7 @@ make %{?_smp_mflags}
 install -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
 install -d -m 0775 ${RPM_BUILD_ROOT}%{_sharedstatedir}/adb
 make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
-install -p -D -m 0644 %{SOURCE6} \
+install -p -D -m 0644 %{SOURCE7} \
     %{buildroot}%{_unitdir}/adb.service
 
 %post
@@ -101,6 +112,15 @@ install -p -D -m 0644 %{SOURCE6} \
 %{_bindir}/adb
 #ASL2.0 and BSD.
 %{_bindir}/fastboot
+
+%files fsutils
+%{_bindir}/make_ext4fs
+%{_bindir}/ext4fixup
+%{_bindir}/ext2simg
+%{_bindir}/img2simg
+%{_bindir}/simg2img
+%{_bindir}/simg2simg
+
 
 
 %changelog
