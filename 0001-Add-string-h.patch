@@ -1,0 +1,36 @@
+diff --git a/base/errors_unix.cpp b/base/errors_unix.cpp
+index 296995e..48269b6 100644
+--- a/base/errors_unix.cpp
++++ b/base/errors_unix.cpp
+@@ -17,6 +17,7 @@
+ #include "android-base/errors.h"
+ 
+ #include <errno.h>
++#include <string.h>
+ 
+ namespace android {
+ namespace base {
+diff --git a/base/file.cpp b/base/file.cpp
+index da1adba..91a3901 100644
+--- a/base/file.cpp
++++ b/base/file.cpp
+@@ -20,6 +20,7 @@
+ #include <fcntl.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
++#include <string.h>
+ 
+ #include <string>
+ 
+diff --git a/base/logging.cpp b/base/logging.cpp
+index 1741871..0f9e11a 100644
+--- a/base/logging.cpp
++++ b/base/logging.cpp
+@@ -29,6 +29,7 @@
+ #include <errno.h>
+ #endif
+ 
++#include <string.h>
+ #include <iostream>
+ #include <limits>
+ #include <sstream>

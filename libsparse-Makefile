@@ -15,8 +15,9 @@ SRCS+= extent.c
 SRCS+= indirect.c
 SRCS+= make_ext4fs.c
 SRCS+= sha1.c
-SRCS+= uuid.c
+SRCS+= ext4_sb.c
 SRCS+= wipe.c
+SRCS+= crc16.c
 
 CPPFLAGS+= -DADB_HOST=1
 CPPFLAGS+= -DHAVE_FORKEXEC=1

@@ -1,8 +1,8 @@
-%global date 20141219
-%global git_commit 8393e50
+%global date 20160221
+%global git_commit 922e151ba2d8
 
 %global packdname core-%{git_commit}
-%global extras_git_commit 1e7d4f3
+%global extras_git_commit ea4a5a4
 %global extras_packdname extras-%{extras_git_commit}
 
 %global _hardened_build 1
@@ -26,15 +26,11 @@ URL:           http://developer.android.com/guide/developing/tools/
 Source0:       %{packdname}.tar.xz
 Source1:       %{extras_packdname}.tar.xz
 Source2:       core-Makefile
-Source3:       adb-Makefile
-Source4:       fastboot-Makefile
-Source5:       libsparse-Makefile
-Source6:       51-android.rules
-Source7:       adb.service
-# None of the code *we* compile uses anything from selinux/android.h, but 
-# other code may, so not upstreaming these patches
-Patch1:        0001-Remove-android-selinux-header.patch
-
+Source3:       generate_build.rb
+Source4:       libsparse-Makefile
+Source5:       51-android.rules
+Source6:       adb.service
+Patch1:        0001-Add-string-h.patch
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -42,6 +38,7 @@ BuildRequires: zlib-devel
 BuildRequires: openssl-devel
 BuildRequires: libselinux-devel
 BuildRequires: f2fs-tools-devel
+BuildRequires: gtest-devel
 BuildRequires: systemd
 
 Provides:      adb
@@ -77,22 +74,23 @@ file format. These are tools to help make that format.
 
 %prep
 %setup -q -b 1 -n extras
-%patch1 -p1
 %setup -q -b 0 -n %{packdname}
+%patch1 -p1
 cp -p %{SOURCE2} Makefile
-cp -p %{SOURCE3} adb/Makefile
-cp -p %{SOURCE4} fastboot/Makefile
-cp -p %{SOURCE5} libsparse/Makefile
-cp -p %{SOURCE6} 51-android.rules
+cp -p %{SOURCE4} libsparse/Makefile
+cp -p %{SOURCE5} 51-android.rules
 
 %build
+ruby %{SOURCE3} | tee build.sh
+PKGVER=%{git_commit} sh -xe build.sh
 make %{?_smp_mflags}
 
 %install
 install -d -m 0755 ${RPM_BUILD_ROOT}%{_bindir}
 install -d -m 0775 ${RPM_BUILD_ROOT}%{_sharedstatedir}/adb
+install -m 0755 -t ${RPM_BUILD_ROOT}%{_bindir} adb/adb fastboot/fastboot
 make install DESTDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir}
-install -p -D -m 0644 %{SOURCE7} \
+install -p -D -m 0644 %{SOURCE6} \
     %{buildroot}%{_unitdir}/adb.service
 
 %post
@@ -113,15 +111,13 @@ install -p -D -m 0644 %{SOURCE7} \
 #ASL2.0 and BSD.
 %{_bindir}/fastboot
 
-%files fsutils
-%{_bindir}/make_ext4fs
-%{_bindir}/ext4fixup
-%{_bindir}/ext2simg
-%{_bindir}/img2simg
-%{_bindir}/simg2img
-%{_bindir}/simg2simg
-
-
+-%files fsutils
+-%{_bindir}/make_ext4fs
+-%{_bindir}/ext4fixup
+-%{_bindir}/ext2simg
+-%{_bindir}/img2simg
+-%{_bindir}/simg2img
+-%{_bindir}/simg2simg
 
 %changelog
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 20141219git8393e50-5
